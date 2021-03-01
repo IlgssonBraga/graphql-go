@@ -44,7 +44,11 @@ autobind:
 # your liking
 models:
   Category:
-    model: "github.com/IlgssonBraga/graphql-go/"
+    model: github.com/IlgssonBraga/graphql-go/graph/model.Category
+  Course:
+    model: github.com/IlgssonBraga/graphql-go/graph/model.Course
+  Chapter:
+    model: github.com/IlgssonBraga/graphql-go/graph/model.Chapter
   ID:
     model:
       - github.com/99designs/gqlgen/graphql.ID
