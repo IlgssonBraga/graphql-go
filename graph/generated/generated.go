@@ -50,9 +50,9 @@ type ComplexityRoot struct {
 	}
 
 	Chapter struct {
-		Category func(childComplexity int) int
-		ID       func(childComplexity int) int
-		Name     func(childComplexity int) int
+		Course func(childComplexity int) int
+		ID     func(childComplexity int) int
+		Name   func(childComplexity int) int
 	}
 
 	Course struct {
@@ -130,12 +130,12 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Category.Name(childComplexity), true
 
-	case "Chapter.category":
-		if e.complexity.Chapter.Category == nil {
+	case "Chapter.course":
+		if e.complexity.Chapter.Course == nil {
 			break
 		}
 
-		return e.complexity.Chapter.Category(childComplexity), true
+		return e.complexity.Chapter.Course(childComplexity), true
 
 	case "Chapter.id":
 		if e.complexity.Chapter.ID == nil {
@@ -325,7 +325,7 @@ type Course {
 type Chapter {
     id: ID!
     name: String!
-    category: Category!
+    course: Course!
 }
 
 input NewCategory {
@@ -667,7 +667,7 @@ func (ec *executionContext) _Chapter_name(ctx context.Context, field graphql.Col
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Chapter_category(ctx context.Context, field graphql.CollectedField, obj *model.Chapter) (ret graphql.Marshaler) {
+func (ec *executionContext) _Chapter_course(ctx context.Context, field graphql.CollectedField, obj *model.Chapter) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -685,7 +685,7 @@ func (ec *executionContext) _Chapter_category(ctx context.Context, field graphql
 	ctx = graphql.WithFieldContext(ctx, fc)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.Category, nil
+		return obj.Course, nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -697,9 +697,9 @@ func (ec *executionContext) _Chapter_category(ctx context.Context, field graphql
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.Category)
+	res := resTmp.(*model.Course)
 	fc.Result = res
-	return ec.marshalNCategory2ᚖgithubᚗcomᚋIlgssonBragaᚋgraphqlᚑgoᚋgraphᚋmodelᚐCategory(ctx, field.Selections, res)
+	return ec.marshalNCourse2ᚖgithubᚗcomᚋIlgssonBragaᚋgraphqlᚑgoᚋgraphᚋmodelᚐCourse(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Course_id(ctx context.Context, field graphql.CollectedField, obj *model.Course) (ret graphql.Marshaler) {
@@ -2411,8 +2411,8 @@ func (ec *executionContext) _Chapter(ctx context.Context, sel ast.SelectionSet, 
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
-		case "category":
-			out.Values[i] = ec._Chapter_category(ctx, field, obj)
+		case "course":
+			out.Values[i] = ec._Chapter_course(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
